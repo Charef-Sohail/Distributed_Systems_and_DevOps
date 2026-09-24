@@ -2,7 +2,7 @@ package com.enset.bankaccountservice;
 
 import com.enset.bankaccountservice.entities.BankAccount;
 import com.enset.bankaccountservice.enums.AccountType;
-import com.enset.bankaccountservice.repositories.BankAccoutRepository;
+import com.enset.bankaccountservice.repositories.BankAccountRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,7 +19,7 @@ public class ActivitePratiqueN1ImplementationUnMicroserviceAvecSpringbootApplica
     }
 
     @Bean
-    CommandLineRunner start(BankAccoutRepository bankAccoutRepository){
+    CommandLineRunner start(BankAccountRepository bankAccountRepository){
         return args -> {
             for(int i = 0; i< 10; i++){
                 BankAccount bankAccount= BankAccount.builder()
@@ -30,7 +30,7 @@ public class ActivitePratiqueN1ImplementationUnMicroserviceAvecSpringbootApplica
                         .currency("MAD")
                         .build();
 
-                bankAccoutRepository.save(bankAccount);
+                bankAccountRepository.save(bankAccount);
             }
         };
     }
