@@ -1,41 +1,34 @@
-# Distributed Systems and DevOps
+# Systèmes Distribués et DevOps
 
-Course materials, practical work, and projects for the **Distributed Systems and DevOps** module at ENSET.
+Ce dépôt regroupe les travaux pratiques réalisés dans le cadre du module
+**Systèmes Distribués et DevOps** à l'ENSET.
 
-## Topics
+## Travaux pratiques
 
-- Distributed systems fundamentals
-- Service communication and APIs
-- Containers with Docker
-- Continuous integration and delivery
-- Deployment and orchestration
-- Monitoring and observability
+| Travail pratique | Description | Lien |
+|---|---|---|
+| Activité pratique N°1 | Implémentation d'un microservice de gestion de comptes avec Spring Boot, REST, Spring Data REST, GraphQL, H2 et Swagger/OpenAPI. | [Ouvrir le projet](./Activite_Pratique_N1-Implementation_un_microservice_avec_springboot/) |
+| Activité pratique N°2 | Mise en place du socle d'un microservice client dans une architecture Spring Cloud avec Config Client, Eureka Client et Actuator. | [Ouvrir le projet](./Activite_Pratique_N2-Architecture_Microservices_avec_Spring_cloud/) |
 
-## Repository structure
+## Prérequis généraux
+
+- Java 17 ou une version ultérieure
+- Maven 3.8+ ou le Maven Wrapper fourni dans chaque projet
+- Git
+- Un IDE compatible avec Spring Boot
+
+Chaque dossier contient son propre README avec les commandes de démarrage,
+les tests et les fonctionnalités du projet.
+
+## Organisation
 
 ```text
 .
-├── cours/       # Lecture notes and resources
-├── tp/          # Practical work
-├── projets/     # Projects
+├── Activite_Pratique_N1-Implementation_un_microservice_avec_springboot/
+├── Activite_Pratique_N2-Architecture_Microservices_avec_Spring_cloud/
 └── README.md
 ```
 
-## Getting started
+## Licence
 
-1. Clone the repository.
-2. Open the relevant practical work or project directory.
-3. Follow its local instructions and documentation.
-
-## Requirements
-
-Install the tools required by each project, such as:
-
-- Git
-- Docker
-- Docker Compose
-- Java, Python, or Node.js, depending on the project
-
-## License
-
-Educational use.
+Travaux réalisés à des fins pédagogiques.

@@ -1,17 +1,40 @@
-# Activité pratique N°1 — Implémentation d’un microservice avec Spring Boot
+# Activité pratique N°1 : Implémentation d'un microservice avec Spring Boot
 
 ## Objectif
 
-Cette activité consiste à concevoir et implémenter un microservice REST avec
-Spring Boot, puis à le tester et à le documenter.
+Cette activité consiste à développer un microservice de gestion de comptes
+bancaires avec Spring Boot, puis à exposer et tester ses API REST et GraphQL.
 
-## Prérequis
+## Énoncé et réalisations
 
-- Java 17 ou version ultérieure
-- Maven 3.8+ (ou le Maven Wrapper du projet)
-- Un IDE compatible avec Spring Boot
+1. Créer un projet Spring Boot avec les dépendances Web, Spring Data JPA, H2 et Lombok.
+2. Créer l'entité JPA `BankAccount` (compte bancaire).
+3. Créer l'interface `BankAccountRepository` basée sur Spring Data.
+4. Tester la couche DAO.
+5. Créer le web service RESTful de gestion des comptes.
+6. Tester le microservice avec un client REST comme Postman.
+7. Générer et tester la documentation Swagger des API REST.
+8. Exposer une API RESTful avec Spring Data REST et des projections.
+9. Créer les DTO et les mappers.
+10. Créer la couche service métier du microservice.
+11. Créer un web service GraphQL pour le microservice en suivant cette vidéo :
+	[Spring for GraphQL](https://www.youtube.com/watch?v=FsdR09jlqaE).
+
+## Technologies
+
+- Java 17
+- Spring Boot
+- Spring Web MVC
+- Spring Data JPA et Spring Data REST
+- Spring for GraphQL
+- H2 Database
+- Lombok
+- Springdoc OpenAPI / Swagger UI
+- Maven
 
 ## Démarrage
+
+Depuis ce dossier :
 
 ```bash
 ./mvnw spring-boot:run
@@ -20,14 +43,26 @@ Spring Boot, puis à le tester et à le documenter.
 Sous Windows :
 
 ```powershell
-.\\mvnw.cmd spring-boot:run
+.\mvnw.cmd spring-boot:run
 ```
 
-L’application est ensuite accessible à l’adresse :
+L'application démarre sur le port `8081` :
 
 ```text
-http://localhost:8080
+http://localhost:8081
 ```
+
+## API et interfaces
+
+- Swagger UI : `http://localhost:8081/swagger-ui.html`
+- H2 Console : `http://localhost:8081/h2-console`
+- GraphiQL : `http://localhost:8081/graphiql`
+- API GraphQL : `http://localhost:8081/graphql`
+- API REST : consulter les contrôleurs et les repositories exposés dans `src/main/java`.
+
+## Documentation Swagger
+
+![Documentation Swagger](./swagger.png)
 
 ## Tests
 
@@ -35,19 +70,11 @@ http://localhost:8080
 ./mvnw test
 ```
 
-## Structure indicative
+## Structure
 
 ```text
 src/
-├── main/
-│   ├── java/          # Code source du microservice
-│   └── resources/     # Configuration et ressources
-└── test/              # Tests unitaires et d’intégration
+├── main/java/       # Entités, DTO, mappers, repositories, services et contrôleurs
+├── main/resources/  # Configuration et schéma GraphQL
+└── test/java/       # Tests du projet
 ```
-
-## Technologies
-
-- Spring Boot
-- Spring Web
-- Maven
-- Java
