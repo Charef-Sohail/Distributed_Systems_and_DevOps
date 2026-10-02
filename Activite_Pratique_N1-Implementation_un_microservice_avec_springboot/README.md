@@ -18,7 +18,7 @@ bancaires avec Spring Boot, puis à exposer et tester ses API REST et GraphQL.
 9. Créer les DTO et les mappers.
 10. Créer la couche service métier du microservice.
 11. Créer un web service GraphQL pour le microservice en suivant cette vidéo :
-	[Spring for GraphQL](https://www.youtube.com/watch?v=FsdR09jlqaE).
+    [Spring for GraphQL](https://www.youtube.com/watch?v=FsdR09jlqaE).
 
 ## Technologies
 
