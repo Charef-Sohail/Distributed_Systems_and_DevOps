@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api")
 public class BillRestController {
     private BillRepository billRepository;
     private final CustomerServiceRestClient customerServiceRestClient;
