@@ -8,7 +8,7 @@ Ce dépôt regroupe les travaux pratiques réalisés dans le cadre du module
 | Travail pratique      | Description                                                                                                                       | Lien                                                                                       |
 | --------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
 | Activité pratique N°1 | Implémentation d'un microservice de gestion de comptes avec Spring Boot, REST, Spring Data REST, GraphQL, H2 et Swagger/OpenAPI.  | [Ouvrir le projet](./Activite_Pratique_N1-Implementation_un_microservice_avec_springboot/) |
-| Activité pratique N°2 | Mise en place du socle d'un microservice client dans une architecture Spring Cloud avec Config Client, Eureka Client et Actuator. | [Ouvrir le projet](./Activite_Pratique_N2-Architecture_Microservices_avec_Spring_cloud/)   |
+| Activité pratique N°2 | Architecture microservices complète pour gérer les clients, les produits et les factures avec Spring Cloud, Eureka, Config Server, Gateway, OpenFeign et Angular. | [Ouvrir le projet](./Activite_Pratique_N2-Architecture_Microservices_avec_Spring_cloud/)   |
 
 ## Prérequis généraux
 

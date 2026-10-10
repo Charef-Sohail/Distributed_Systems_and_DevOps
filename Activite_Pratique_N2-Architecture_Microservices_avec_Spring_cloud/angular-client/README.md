@@ -1,16 +1,24 @@
-# AngularClient
+# Client Angular de l'architecture microservices
+
+Cette application fournit une interface web pour consulter et gérer les
+clients, les produits et les factures via `gateway-service`.
+
+Les appels HTTP sont envoyés vers `http://localhost:8888` et utilisent les
+routes `/CUSTOMER-SERVICE`, `/INVENTORY-SERVICE` et `/BILLING-SERVICE`.
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.2.
 
-## Development server
+## Serveur de développement
 
-To start a local development server, run:
+Pour installer les dépendances puis démarrer le serveur de développement :
 
 ```bash
-ng serve
+npm install
+npm start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Ouvrir ensuite [http://localhost:4200](http://localhost:4200). Le gateway et
+les trois microservices métier doivent être démarrés pour charger les données.
 
 ## Code scaffolding
 
