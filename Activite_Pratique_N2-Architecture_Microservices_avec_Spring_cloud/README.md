@@ -32,26 +32,26 @@ communication interservices avec OpenFeign et une interface Angular.
 
 ![Architecture de l'application](./screenshots/architecture.png)
 
-| Composant | Rôle | Port |
-|---|---|---:|
-| `discovery-service` | Annuaire Eureka et découverte des services | `8761` |
-| `config-service` | Serveur de configuration centralisée | `9999` |
-| `gateway-service` | Point d'entrée HTTP, CORS et routage vers les services | `8888` |
-| `customer-service` | Gestion des clients avec JPA, H2 et Spring Data REST | `8081` |
-| `inventory-service` | Gestion des produits avec JPA, H2 et Spring Data REST | `8082` |
-| `billing-service` | Gestion des factures et enrichissement via OpenFeign | `8083` |
-| `angular-client` | Interface web de gestion des données | `4200` |
+| Composant           | Rôle                                                   |   Port |
+| ------------------- | ------------------------------------------------------ | -----: |
+| `discovery-service` | Annuaire Eureka et découverte des services             | `8761` |
+| `config-service`    | Serveur de configuration centralisée                   | `9999` |
+| `gateway-service`   | Point d'entrée HTTP, CORS et routage vers les services | `8888` |
+| `customer-service`  | Gestion des clients avec JPA, H2 et Spring Data REST   | `8081` |
+| `inventory-service` | Gestion des produits avec JPA, H2 et Spring Data REST  | `8082` |
+| `billing-service`   | Gestion des factures et enrichissement via OpenFeign   | `8083` |
+| `angular-client`    | Interface web de gestion des données                   | `4200` |
 
 ## Fonctionnement
 
 Le client Angular communique avec la Gateway sur `http://localhost:8888`.
 La Gateway distribue les requêtes vers les services enregistrés dans Eureka :
 
-| Route publique | Service cible |
-|---|---|
-| `/customers/**` | `CUSTOMER-SERVICE` |
-| `/products/**` | `INVENTORY-SERVICE` |
-| `/bills/**` | `BILLING-SERVICE` |
+| Route publique  | Service cible       |
+| --------------- | ------------------- |
+| `/customers/**` | `CUSTOMER-SERVICE`  |
+| `/products/**`  | `INVENTORY-SERVICE` |
+| `/bills/**`     | `BILLING-SERVICE`   |
 
 Le service de facturation utilise OpenFeign pour appeler `customer-service` et
 `inventory-service`. Lorsqu'une facture est consultée, les informations du
