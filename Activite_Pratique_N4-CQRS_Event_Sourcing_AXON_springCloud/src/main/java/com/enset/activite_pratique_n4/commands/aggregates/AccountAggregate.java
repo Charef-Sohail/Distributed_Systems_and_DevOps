@@ -2,6 +2,7 @@ package com.enset.activite_pratique_n4.commands.aggregates;
 
 import com.enset.activite_pratique_n4.commands.commands.CreateAccountCommand;
 import com.enset.activite_pratique_n4.commands.commands.CreditAccountCommand;
+import com.enset.activite_pratique_n4.commands.events.AccountActivatedEvent;
 import com.enset.activite_pratique_n4.commands.events.AccountCreatedEvent;
 import com.enset.activite_pratique_n4.commands.events.AccountCreditedEvent;
 import com.enset.activite_pratique_n4.common.AccountStatus;
@@ -37,6 +38,11 @@ public class AccountAggregate {
                 command.getInitialBalance(),
                 AccountStatus.CREATED,
                 command.getCurrency()
+        ));
+
+        AggregateLifecycle.apply(new AccountActivatedEvent(
+                command.getId(),
+                AccountStatus.ACTIVATED
         ));
     }
 
