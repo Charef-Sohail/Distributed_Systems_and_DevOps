@@ -4,12 +4,14 @@ import com.enset.activite_pratique_n4.commands.events.*;
 import com.enset.activite_pratique_n4.common.OperationType;
 import com.enset.activite_pratique_n4.query.entities.Account;
 import com.enset.activite_pratique_n4.query.entities.AccountOperation;
+import com.enset.activite_pratique_n4.query.queries.WatchEventQuery;
 import com.enset.activite_pratique_n4.query.repositories.AccountRepository;
 import com.enset.activite_pratique_n4.query.repositories.OperationRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.eventhandling.EventMessage;
+import org.axonframework.queryhandling.QueryUpdateEmitter;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,6 +21,8 @@ public class AccountEventHandler {
 
     private AccountRepository accountRepository;
     private OperationRepository operationRepository;
+
+    private QueryUpdateEmitter queryUpdateEmitter;
 
     @EventHandler
     public void on(AccountCreatedEvent event, EventMessage<AccountCreatedEvent> eventMessage) {
@@ -73,6 +77,13 @@ public class AccountEventHandler {
         // 4. Mettre à jour le solde du compte
         account.setBalance(account.getBalance() - event.getAmount());
         accountRepository.save(account);
+        // <-- LIGNE À AJOUTER POUR LE TEMPS RÉEL -->
+        // On émet l'opération qui vient d'être sauvegardée à tous ceux qui écoutent ce compte
+        queryUpdateEmitter.emit(
+                WatchEventQuery.class,
+                query -> query.getAccountId().equals(event.getAccountId()),
+                accountOperation
+        );
     }
 
     // Projection de l'événement de Crédit
