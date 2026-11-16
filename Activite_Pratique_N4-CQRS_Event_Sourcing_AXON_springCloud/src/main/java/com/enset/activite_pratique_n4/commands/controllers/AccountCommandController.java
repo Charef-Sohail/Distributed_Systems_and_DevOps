@@ -2,8 +2,10 @@ package com.enset.activite_pratique_n4.commands.controllers;
 
 import com.enset.activite_pratique_n4.commands.commands.CreateAccountCommand;
 import com.enset.activite_pratique_n4.commands.commands.CreditAccountCommand;
+import com.enset.activite_pratique_n4.commands.commands.DebitAccountCommand;
 import com.enset.activite_pratique_n4.commands.dto.AddNewAccountRequestDTO;
 import com.enset.activite_pratique_n4.commands.dto.CreditAccountDTO;
+import com.enset.activite_pratique_n4.commands.dto.DebitAccountDTO;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,16 @@ public class AccountCommandController {
     @PostMapping("/credit")
     public CompletableFuture<String> creditAccount(@RequestBody CreditAccountDTO request){
         CompletableFuture<String> result = this.commandGateway.send(new CreditAccountCommand(
+                request.accountId(),
+                request.amount(),
+                request.currency()
+        ));
+        return result;
+    }
+
+    @PostMapping("/debit")
+    public CompletableFuture<String> debitAccount(@RequestBody DebitAccountDTO request){
+        CompletableFuture<String> result = this.commandGateway.send(new DebitAccountCommand(
                 request.accountId(),
                 request.amount(),
                 request.currency()

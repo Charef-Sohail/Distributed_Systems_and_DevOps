@@ -2,9 +2,11 @@ package com.enset.activite_pratique_n4.commands.aggregates;
 
 import com.enset.activite_pratique_n4.commands.commands.CreateAccountCommand;
 import com.enset.activite_pratique_n4.commands.commands.CreditAccountCommand;
+import com.enset.activite_pratique_n4.commands.commands.DebitAccountCommand;
 import com.enset.activite_pratique_n4.commands.events.AccountActivatedEvent;
 import com.enset.activite_pratique_n4.commands.events.AccountCreatedEvent;
 import com.enset.activite_pratique_n4.commands.events.AccountCreditedEvent;
+import com.enset.activite_pratique_n4.commands.events.AccountDebitedEvent;
 import com.enset.activite_pratique_n4.common.AccountStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
@@ -46,7 +48,6 @@ public class AccountAggregate {
         ));
     }
 
-
     @EventSourcingHandler
     public void on(AccountCreatedEvent event){
         log.info("################# AddAccountCommand occurred ############");
@@ -54,7 +55,14 @@ public class AccountAggregate {
         this.balance = event.getInitialBalance();
         this.status = event.getStatus();
     }
+    @EventSourcingHandler
+    public void on(AccountActivatedEvent event){
+        log.info("################# ActivateAccountCommand occurred ############");
+        this.accountId = event.getAccountId();
+        this.status = event.getStatus();
+    }
 
+    @CommandHandler
     public void handle(CreditAccountCommand command) {
         log.info("############ CreditAccountCommand Received ############");
 
@@ -76,5 +84,31 @@ public class AccountAggregate {
         log.info("################# AccountCreditedEvent occurred ############");
         this.accountId = event.getAccountId();
         this.balance += event.getAmount();
+    }
+
+    @CommandHandler
+    public void handle(DebitAccountCommand command) {
+        log.info("############ DebitAccountCommand Received ############");
+
+        if (!status.equals(AccountStatus.ACTIVATED))
+            throw new RuntimeException("The account " + command.getId() + " is not activated");
+
+        if (command.getAmount() <= 0)
+            throw new IllegalArgumentException("Amount must be positive");
+        if (balance < command.getAmount())
+        throw new IllegalArgumentException("Balance is not sufficient");
+
+        AggregateLifecycle.apply(new AccountDebitedEvent(
+                command.getId(),
+                command.getAmount(),
+                command.getCurrency()
+        ));
+    }
+
+    @EventSourcingHandler
+    public void on(AccountDebitedEvent event){
+        log.info("################# AccountDebitedEvent occurred ############");
+        this.accountId = event.getAccountId();
+        this.balance -= event.getAmount();
     }
 }
