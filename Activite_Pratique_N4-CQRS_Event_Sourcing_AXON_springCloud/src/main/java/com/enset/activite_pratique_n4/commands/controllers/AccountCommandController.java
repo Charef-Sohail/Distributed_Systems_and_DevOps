@@ -3,9 +3,11 @@ package com.enset.activite_pratique_n4.commands.controllers;
 import com.enset.activite_pratique_n4.commands.commands.CreateAccountCommand;
 import com.enset.activite_pratique_n4.commands.commands.CreditAccountCommand;
 import com.enset.activite_pratique_n4.commands.commands.DebitAccountCommand;
+import com.enset.activite_pratique_n4.commands.commands.UpdateAccountStatusCommand;
 import com.enset.activite_pratique_n4.commands.dto.AddNewAccountRequestDTO;
 import com.enset.activite_pratique_n4.commands.dto.CreditAccountDTO;
 import com.enset.activite_pratique_n4.commands.dto.DebitAccountDTO;
+import com.enset.activite_pratique_n4.commands.dto.UpdateAccountStatusRequestDTO;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +54,14 @@ public class AccountCommandController {
                 request.currency()
         ));
         return result;
+    }
+
+    @PutMapping(path = "/updateStatus")
+    public CompletableFuture<String> updateStatus(@RequestBody UpdateAccountStatusRequestDTO request) {
+        return commandGateway.send(new UpdateAccountStatusCommand(
+                request.accountId(),
+                request.status()
+        ));
     }
 
     @ExceptionHandler(Exception.class)

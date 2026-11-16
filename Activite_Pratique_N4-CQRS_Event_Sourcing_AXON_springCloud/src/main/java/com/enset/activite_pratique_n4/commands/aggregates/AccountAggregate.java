@@ -3,10 +3,8 @@ package com.enset.activite_pratique_n4.commands.aggregates;
 import com.enset.activite_pratique_n4.commands.commands.CreateAccountCommand;
 import com.enset.activite_pratique_n4.commands.commands.CreditAccountCommand;
 import com.enset.activite_pratique_n4.commands.commands.DebitAccountCommand;
-import com.enset.activite_pratique_n4.commands.events.AccountActivatedEvent;
-import com.enset.activite_pratique_n4.commands.events.AccountCreatedEvent;
-import com.enset.activite_pratique_n4.commands.events.AccountCreditedEvent;
-import com.enset.activite_pratique_n4.commands.events.AccountDebitedEvent;
+import com.enset.activite_pratique_n4.commands.commands.UpdateAccountStatusCommand;
+import com.enset.activite_pratique_n4.commands.events.*;
 import com.enset.activite_pratique_n4.common.AccountStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
@@ -110,5 +108,22 @@ public class AccountAggregate {
         log.info("################# AccountDebitedEvent occurred ############");
         this.accountId = event.getAccountId();
         this.balance -= event.getAmount();
+    }
+
+    @CommandHandler
+    public void handle(UpdateAccountStatusCommand command) {
+        if (this.status == command.getStatus()) {
+            throw new RuntimeException("Account is already in " + command.getStatus() + " status");
+        }
+
+        AggregateLifecycle.apply(new AccountStatusUpdatedEvent(
+                command.getId(),
+                command.getStatus()
+        ));
+    }
+
+    @EventSourcingHandler
+    public void on(AccountStatusUpdatedEvent event) {
+        this.status = event.getStatus();
     }
 }
